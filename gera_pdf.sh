@@ -27,7 +27,7 @@ for d in disciplinas/*/; do
     pandoc -V geometry:margin=.3in -f markdown report.md -t latex -o ../../relatorios/$name.pdf
 
     # arquivo para o feedback da consulta
-    cat ../../relatorios/feedback_consulta.md con_cmt.md > feedback_consulta.md
+    cat ../../relatorios/feedback_consulta.md con_cmt.md > ../../feedback_consulta.md
 
     cd ../..
 done
