@@ -13,21 +13,22 @@ echo '-- GERANDO PDFS'
 for d in disciplinas/*/; do
     cd "$d"
     echo $d
+
     # juntando arquivos numa coisa só
     cat name.md \
         ../../templates/ensino_remoto.md \
         rmt_cmt.md \
         ../../templates/ensino_geral.md \
-        gen_cmt.md >report.md
+        gen_cmt.md > report.md
+    
+    f_name=${d:12}
+    f_name=${name%?}
 
     # gera os PDFs com os graficos e os comentarios
-    #pandoc -V geometry:margin=.3in report.md ../../relatorios/${d%?}.pdf
-    name=${d:12}
-    name=${name%?}
-    pandoc -V geometry:margin=.3in -f markdown report.md -t latex -o ../../relatorios/$name.pdf
+    pandoc -V geometry:margin=.3in -f markdown report.md -t latex -o ../../relatorios/$f_name.pdf
 
     # arquivo para o feedback da consulta
-    cat ../../relatorios/feedback_consulta.md con_cmt.md > ../../feedback_consulta.md
+    cat con_cmt.md >> ../../relatorios/feedback_consulta.md
 
     cd ../..
 done
