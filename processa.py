@@ -11,6 +11,9 @@ COMENTARIO_REMOTO = 9
 COMENTARIO_GERAL = 20
 COMENTARIO_CONSULTA = 21
 
+# Lista com os indices das colunas que são questões de multipla escolha
+LISTA_MULTIPLA = [5, 6, 8]
+
 def gen_plots(path, data, colunas):
     '''
     Gera um grafico de pizza para cada uma das questões da consulta
@@ -24,7 +27,7 @@ def gen_plots(path, data, colunas):
     
     # Arrumando o contador para as questões de multipla escolha, colocar os 
     # indices delas na lista
-    for i in [5, 6, 8]:
+    for i in LISTA_MULTIPLA:
         aux = Counter()
         for k in counter[i].keys():
             for nk in k.split(';'):
@@ -41,7 +44,7 @@ def gen_plots(path, data, colunas):
             pal = new_lbl[j].split(" ")
             new_lbl[j] = ' '.join(word for word in pal[:int(len(pal)/2)]) + '\n' + ' '.join(word for word in pal[int(len(pal)/2):])
 
-        # modifique aqui par amuda ro tamanho dos graficos
+        # modifique aqui para mudar o tamanho dos graficos
         fig, ax = plt.subplots(figsize=(15, 7))
         wedges, texts, autotexts = \
             plt.pie(counter[i].values(), labels=new_lbl, autopct='%1.1f%%', normalize=True)
@@ -121,7 +124,7 @@ def processa(data, disciplinas, colunas):
         gen_plots(path, data_disc, colunas)
         print("Concluido!")
         cnt += 1
-    
+
     return cnt
 
 def main():

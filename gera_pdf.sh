@@ -5,6 +5,9 @@
 rm -r relatorios/
 mkdir relatorios
 
+rm -r relatorios/feedback_consulta.md
+touch relatorios/feedback_consulta.md
+
 echo '-- GERANDO PDFS'
 
 for d in disciplinas/*/; do
@@ -22,6 +25,9 @@ for d in disciplinas/*/; do
     name=${d:12}
     name=${name%?}
     pandoc -V geometry:margin=.3in -f markdown report.md -t latex -o ../../relatorios/$name.pdf
+
+    # arquivo para o feedback da consulta
+    cat ../../relatorios/feedback_consulta.md con_cmt.md > feedback_consulta.md
 
     cd ../..
 done
