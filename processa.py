@@ -7,12 +7,11 @@ import csv, os
 
 # Indices das colunas que apresentam comentarios sobre as sessões, atualizar de
 # acordo com a consulta aplicada e indices impressos no terminal
-COMENTARIO_REMOTO = 9
-COMENTARIO_GERAL = 20
-COMENTARIO_CONSULTA = 21
+COMENTARIO_GERAL = 13
+COMENTARIO_CONSULTA = None
 
 # Lista com os indices das colunas que são questões de multipla escolha
-LISTA_MULTIPLA = [5, 6, 8]
+LISTA_MULTIPLA = [10]
 
 def gen_plots(path, data, colunas):
     '''
@@ -84,7 +83,6 @@ def processa(data, disciplinas, colunas):
         print('Numero de participações: ' + str(len(data_disc)))
 
         aux = d.split(' - ')
-        aux.remove(aux[3])
 
         # nome do professor e da materia separados com '-'
         aux[0] = aux[0].replace(' ', '-')
@@ -98,13 +96,6 @@ def processa(data, disciplinas, colunas):
         # nome da disciplina no markdown
         f = open(path + "/name.md", "w+")
         f.write("# " + d)
-        f.close()
-
-        # criando md para os comentarios sobre ensino romoto
-        f = open(path + "/rmt_cmt.md", "w+")
-        comentarios = data_disc[colunas[COMENTARIO_REMOTO]].dropna()
-        for c in comentarios:
-            f.write("- " + c + "\n")
         f.close()
 
         # criando md para os comentarios sobre ensino geral
